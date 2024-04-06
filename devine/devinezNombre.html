@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jeu de Devinez le Nombre</title>
+    <link rel="stylesheet" href="deviSt.css">
+    <script>
+        let nombreADeviner = Math.floor(Math.random() * 100) + 1;
+        let nombreEssais = 0;
+        function verifierProposition() {
+            let proposition = parseInt(document.getElementById("proposition").value);
+            if (isNaN(proposition) || proposition < 1 || proposition > 100) {
+                document.getElementById("feedback").innerHTML = "Veuillez saisir un nombre entre 1 et 100.";
+                return;
+            }
+            nombreEssais++;
+            if (proposition < nombreADeviner) {
+                document.getElementById("feedback").innerHTML = "Trop petit !";
+            } else if (proposition > nombreADeviner) {
+                document.getElementById("feedback").innerHTML = "Trop grand !";
+            } else {
+                document.getElementById("feedback").innerHTML = "Bravo ! Vous avez deviné le nombre en " + nombreEssais + " essais.";
+                nombreADeviner = Math.floor(Math.random() * 100) + 1; // Générer un nouveau nombre à deviner
+                nombreEssais = 0; 
+            }
+            document.getElementById("proposition").value = "";
+        }
+    </script>
+</head>
+<body>
+    <h1>Jeu de Devinez le Nombre</h1>
+    <p>Devinez un nombre entre 1 et 100 :</p>
+    <input type="text" id="proposition" placeholder="Saisissez votre proposition">
+    <button onclick="verifierProposition()">Vérifier</button>
+    <p id="feedback"></p>
+</body>
+</html>
